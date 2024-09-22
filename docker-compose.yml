@@ -86,3 +86,19 @@ services:
         - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
         - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
         - NATS_SERVERS=${NATS_SERVERS}
+# ==============================================================================
+# Products-ms
+# ==============================================================================
+    
+  auth-ms:
+    container_name: auth-ms
+    build: ./auth-ms
+    volumes:
+      - ./auth-ms/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3000
+      - NODE_ENV=${NODE_ENV}
+      - NATS_SERVERS=${NATS_SERVERS}
+      - DATABASE_URL=${AUTH_DATABASE_URL}
+      - JWT_SECRET=${AUTH_JWT_SECRET}
